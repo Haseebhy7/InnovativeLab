@@ -16,13 +16,13 @@
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
           <a href="project.html">Projects</a>
-          <a href="blog.html">Blogs</a>
+          <a href="#">Blogs</a>
           <a href="contact.html">Contact</a>
         </div>
       </nav>
     <section class="video-section">
         <video autoplay loop muted>
-          <source src="images/connection_-_113364 (1080p).mp4" type="video/mp4">
+          <source src="/images/connection_-_113364 (1080p).mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <div class="video-text">
@@ -52,17 +52,26 @@
       </div>
       <div class="contact-form">
         <h2>Send Us a Message</h2>
-        <form action="submit_form.php" method="post">
-          <!-- Your input fields here -->
-          <input type="text" name="Name" placeholder="Your Name" required>
-          <input type="email" name="Email" placeholder="Your Email" required>
-          <textarea name="Message" placeholder="Your Message" required></textarea>
-          <button type="submit button">Send Message</button>
+        <form>
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
         </form>
-        
       </div>
     </div>
   </section>
+  <!-- ... (previous HTML code) ... -->
+
+<div class="popup-container" id="popupContainer">
+  <div class="popup">
+    <p>Message sent successfully!</p>
+    <button onclick="hidePopup()">Close</button>
+  </div>
+</div>
+
+<!-- ... (remaining HTML code) ... -->
+
   <footer>
     <div class="social-icons">
       <!-- Use Font Awesome icons for social media links -->
@@ -74,56 +83,24 @@
       &copy; 2023 Innovative Lab. All rights reserved. | <span style="font-size: 12px;">&trade;</span>
     </div>
   </footer>
-  <div id="popup-message"></div>
   <script>
-    // Function to display the pop-up message
-    function showPopupMessage(message) {
-      const popupDiv = document.getElementById("popup-message");
-      popupDiv.innerHTML = message;
-      popupDiv.style.display = "block";
+    const popupContainer = document.getElementById('popupContainer');
+    const form = document.querySelector('form');
   
-      // Hide the pop-up message after 3 seconds (adjust as needed)
-      setTimeout(() => {
-        popupDiv.style.display = "none";
-      }, 3000);
+    function showPopup() {
+      popupContainer.style.display = 'flex';
     }
   
-    // Function to handle form submission
-    function handleSubmit(event) {
+    function hidePopup() {
+      popupContainer.style.display = 'none';
+    }
+  
+    form.addEventListener('submit', function (event) {
       event.preventDefault();
-      const form = event.target;
-      const formData = new FormData(form);
-  
-      // Assuming you have a PHP file (submit_form.php) to handle form submission
-      // Modify the URL accordingly to match your PHP file location
-      const url = "submit_form.php";
-  
-      // Send the form data to the PHP file using fetch API
-      fetch(url, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.text())
-        .then((message) => {
-          // Assuming the PHP file returns a success message upon successful form submission
-          // Modify the message below to display appropriate content from the PHP response
-          showPopupMessage(message);
-          // Reset the form after submission
-          form.reset();
-        })
-        .catch((error) => {
-          // Handle errors if any
-          console.error("Error:", error);
-        });
-    }
-  
-    // Attach the handleSubmit function to the form's submit event
-    document.addEventListener("DOMContentLoaded", function () {
-      const contactForm = document.querySelector(".contact-form form");
-      contactForm.addEventListener("submit", handleSubmit);
+      showPopup();
+      form.reset();
     });
   </script>
   
 </body>
 </html>
-
